@@ -1,0 +1,41 @@
+#!/bin/bash 
+
+if [ ! -f /opt/homebrew/bin/brew ]; then
+  read -p "We are going to have to install brew, press any key to continue" 
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  PATH=/opt/homebrew/bin:$PATH
+else
+  echo "Brew already installed skipping"
+fi
+
+echo "We are going to check and if needed install some pkgs needed for HDH"
+echo "brew will now install git and node"
+read -p "Press any key to continue or Ctrl-C to abort"
+
+brew install node git
+
+
+echo "We will create a dir if needed in your users home called git" 
+echo "and under that a dir called harness to do our clone in"
+  read -p "Press any key to continue or Ctrl-C to abort"
+
+  if [ ! -d ~/git ]; then 
+    mkdir -p ~/git/harness
+  fi
+
+cd ~/git/harness
+
+echo "This may take a bit, it's a large code-base"
+  git clone https://github.com/harness/developer-hub.git
+
+echo "Now we need to setup and install yarn"
+read -p "Press any key to continue or Ctrl-C to abort"
+
+cd ~/git/harness/developer-hub
+npm install yarn
+
+echo "We are done.  You have liftoff.  When ready,"
+echo "Run the startup script and have fun"
+echo "The starup script will both start and stop the env for you whenever you are ready"
+echo "Just put the startup script in your path and enjoy."
+read -p "Press any key to finish"

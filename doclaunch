@@ -1,0 +1,36 @@
+#!/bin/bash
+
+function startUp {
+  /opt/homebrew/bin/yarn start > /dev/null 2>&1
+  sleep 2 
+  /Applications/Firefox.app/Contents/MacOS/firefox http://localhost:3000 &
+  echo "If this is the first run it may take a while to download the 10000lb monster called node" 
+  }
+
+function getState { ps ax | grep "yarn start" | grep -v grep > /dev/null
+  retval=$?
+  pid=`lsof -i :3000 | grep "hbci (LISTEN)"  |awk '{ print $2 }'`
+}
+
+function runStop {
+  if [ "$retval" != "0" ]; then
+    cd /Users/jamessparenberg/git/harness/developer-hub
+    startUp > /dev/null 2>&1 &
+    echo "I'm starting up Yarn and will startup Fx to get your page running shortly"
+    echo "If this is the first run, it may take up to 5min to start."
+    echo "It will open your browser to a new tab"
+  elif  [ "$retval" == "0" ]; then 
+    read -n 1 -p "Do you want to shutdown yarn (y|n)?" desire > /dev/null
+    desire=`echo "$desire" | tr '[:upper:]' '[:lower:]'`
+    if [ $desire == y ]; then
+      kill -s HUP $pid > /dev/null 2>&1
+    elif [ $desire == n ]; then
+      echo "You chose 'n', so not stopping"
+    else
+      echo "Either y for yes or n for no"
+    fi
+  fi
+}
+   
+getState
+runStop
