@@ -3,7 +3,7 @@
 function startUp {
   /opt/homebrew/bin/yarn start > /dev/null 2>&1
   sleep 2 
-  /Applications/Firefox.app/Contents/MacOS/firefox http://localhost:3000 &
+  open http://localhost:3000 &
   echo "If this is the first run it may take a while to download the 10000lb monster called node" 
   }
 
