@@ -19,6 +19,7 @@ A bash script designed to:
   * Launch your systems default browser at http://localhost:3000
   * If it detects that the env in already running (a yarn process) it will ask if you want to shutdown the mini webserver in yarn.
 
+Place this into your path for launch anytime you need it.  
 
 
     
