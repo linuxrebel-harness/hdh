@@ -18,6 +18,7 @@ A bash script designed to:
   * Start up the docs env 
   * Launch your systems default browser at http://localhost:3000
   * If it detects that the env in already running (a yarn process) it will ask if you want to shutdown the mini webserver in yarn.
+  * _Note: first launch can be very slow.  Be patient._
 
 Place this into your path for launch anytime you need it.  
 
